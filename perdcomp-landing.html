@@ -1,0 +1,1168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PERDCOMP Mapper - Mapeamento Inteligente de Créditos Tributários | RZ3</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-dark: #003366;
+            --primary-light: #0055AA;
+            --accent-gold: #D4A574;
+            --accent-gold-dark: #B8935A;
+            --text-dark: #1a1a1a;
+            --text-secondary: #555555;
+            --text-light: #888888;
+            --bg-white: #FFFFFF;
+            --bg-light: #F8FAFB;
+            --border-color: #E5E7EB;
+            --success: #10B981;
+            --warning: #F59E0B;
+            --danger: #EF4444;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--bg-white);
+        }
+
+        /* ============ HEADER ============ */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: var(--accent-gold);
+        }
+
+        nav a {
+            margin-left: 2.5rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-dark);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* ============ HERO SECTION ============ */
+        .hero {
+            position: relative;
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #004080 100%);
+            color: white;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 4rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            line-height: 1.15;
+            margin-bottom: 1.5rem;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            opacity: 0.95;
+            margin-bottom: 2rem;
+            animation: slideInLeft 0.8s ease 0.2s both;
+        }
+
+        .hero-highlight {
+            color: var(--accent-gold);
+            font-weight: 700;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            animation: slideInLeft 0.8s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 0.9rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: var(--text-dark);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-gold-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .hero-image {
+            position: relative;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1) 0%, rgba(0, 85, 170, 0.1) 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: slideInRight 0.8s ease 0.2s both;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+        }
+
+        .hero-image svg {
+            width: 80%;
+            height: 80%;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* ============ PROBLEMS SECTION ============ */
+        .problems {
+            padding: 5rem 2rem;
+            background: var(--bg-light);
+        }
+
+        .section-header {
+            max-width: 1400px;
+            margin: 0 auto 4rem;
+            text-align: center;
+        }
+
+        .section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .problems-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-gold);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .problem-card h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .problem-card p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ============ FEATURES SECTION ============ */
+        .features {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .features-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInUp 0.6s ease backwards;
+        }
+
+        .feature-item:nth-child(1) { animation-delay: 0.1s; }
+        .feature-item:nth-child(2) { animation-delay: 0.2s; }
+        .feature-item:nth-child(3) { animation-delay: 0.3s; }
+        .feature-item:nth-child(4) { animation-delay: 0.4s; }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary-light));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+        }
+
+        .feature-content h3 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .feature-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .features-image {
+            position: relative;
+            height: 450px;
+            background: linear-gradient(135deg, rgba(0, 51, 102, 0.05) 0%, rgba(212, 165, 116, 0.05) 100%);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .features-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(212, 165, 116, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translate(-100%, -100%) rotate(45deg); }
+            100% { transform: translate(100%, 100%) rotate(45deg); }
+        }
+
+        /* ============ BENEFITS SECTION ============ */
+        .benefits {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #004080 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefits::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -20%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 165, 116, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .benefits-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .benefits h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .benefit-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            padding: 2rem;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .benefit-card h3 {
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .benefit-card p {
+            opacity: 0.95;
+            line-height: 1.8;
+        }
+
+        /* ============ PRICING SECTION ============ */
+        .pricing {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .pricing-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .pricing-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent-gold);
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(212, 165, 116, 0.2);
+        }
+
+        .pricing-card.featured::before {
+            content: 'MAIS POPULAR';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--accent-gold);
+            color: var(--text-dark);
+            padding: 0.4rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-5px);
+        }
+
+        .pricing-header h3 {
+            font-size: 1.4rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+
+        .pricing-header p {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .price {
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            flex-grow: 1;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .pricing-features li::before {
+            content: '✓';
+            color: var(--success);
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .pricing-card .btn {
+            width: 100%;
+            margin-top: auto;
+        }
+
+        .btn-checkout {
+            background: var(--primary-dark);
+            color: white;
+        }
+
+        .btn-checkout:hover {
+            background: var(--primary-light);
+        }
+
+        /* ============ TRUST SECTION ============ */
+        .trust {
+            padding: 4rem 2rem;
+            background: var(--bg-light);
+        }
+
+        .trust-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .trust-stat {
+            display: inline-block;
+            margin: 0 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .trust-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            font-weight: 700;
+        }
+
+        .trust-label {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        /* ============ TIMELINE SECTION ============ */
+        .timeline {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .timeline-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(even) {
+            direction: rtl;
+        }
+
+        .timeline-item:nth-child(even) > * {
+            direction: ltr;
+        }
+
+        .timeline-number {
+            background: var(--primary-dark);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .timeline-content h3 {
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* ============ CTA SECTION ============ */
+        .final-cta {
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #004080 100%);
+            color: white;
+            text-align: center;
+        }
+
+        .final-cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .final-cta p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            padding: 3rem 2rem;
+            background: #0a0a0a;
+            color: #999;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* ============ MODAL DE CUPOM ============ */
+        .coupon-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .coupon-modal.active {
+            display: flex;
+        }
+
+        .coupon-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .coupon-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .coupon-close:hover {
+            color: var(--text-dark);
+        }
+
+        .coupon-content h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .coupon-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .coupon-form input {
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 1rem;
+        }
+
+        .coupon-form button {
+            padding: 0.9rem;
+            background: var(--primary-dark);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .coupon-form button:hover {
+            background: var(--primary-light);
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav a {
+                margin-left: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .cta-group {
+                flex-direction: column;
+            }
+
+            .hero-image {
+                height: 300px;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .features-content {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-card.featured {
+                transform: scale(1);
+            }
+
+            .pricing-card.featured:hover {
+                transform: translateY(-5px);
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                direction: ltr !important;
+            }
+
+            .timeline-item > * {
+                direction: ltr !important;
+            }
+
+            .final-cta h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="header-content">
+            <div class="logo">RZ<span>3</span></div>
+            <nav>
+                <a href="#features">Recursos</a>
+                <a href="#benefits">Benefícios</a>
+                <a href="#pricing">Preços</a>
+                <a href="#timeline">Processo</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <div>
+                <h1>Mapeie seus <span class="hero-highlight">PERDCOMPs</span> com segurança</h1>
+                <p>Obtenha visibilidade total sobre seus créditos tributários. Identifique inconsistências antes da Receita Federal. Aumente sua defesa técnica com um mapa estruturado de movimentação de créditos.</p>
+                <div class="cta-group">
+                    <button class="btn btn-primary" onclick="scrollToSection('pricing')">Comprar agora</button>
+                    <button class="btn btn-secondary" onclick="scrollToSection('features')">Saiba como funciona</button>
+                </div>
+            </div>
+            <div class="hero-image">
+                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="30" y="40" width="140" height="120" fill="none" stroke="#D4A574" stroke-width="2"/>
+                    <line x1="40" y1="60" x2="160" y2="60" stroke="#D4A574" stroke-width="1"/>
+                    <line x1="40" y1="80" x2="160" y2="80" stroke="#D4A574" stroke-width="1"/>
+                    <line x1="40" y1="100" x2="160" y2="100" stroke="#D4A574" stroke-width="1"/>
+                    <line x1="40" y1="120" x2="160" y2="120" stroke="#D4A574" stroke-width="1"/>
+                    <circle cx="100" cy="50" r="8" fill="#D4A574"/>
+                    <path d="M 50 75 L 70 75 M 50 95 L 70 95 M 50 115 L 70 115" stroke="#D4A574" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEMAS -->
+    <section class="problems">
+        <div class="section-header">
+            <h2>O Dilema das Empresas com PERDCOMPs</h2>
+            <p>Hoje, a Receita Federal realiza revisão massiva de créditos. Quem não está organizado enfrenta consequências sérias.</p>
+        </div>
+        <div class="problems-grid">
+            <div class="problem-card">
+                <h3>🚨 Sem Mapeamento</h3>
+                <p>Você só descobre o erro quando o despacho decisório chega. Sem documentação estruturada para defesa, sua manifestação fica narrativa.</p>
+            </div>
+            <div class="problem-card">
+                <h3>📊 Desorganização Tributária</h3>
+                <p>Múltiplos consultores emitem DCOMPs em seu nome. Você não tem visibilidade de créditos duplicados, compensações sobre débitos já pagos, ou problemas de competência.</p>
+            </div>
+            <div class="problem-card">
+                <h3>⚠️ Risco de Multa</h3>
+                <p>Quando a compensação é considerada indevida, vem multa isolada de 50%, mais cobrança do débito com juros e inscrição em dívida ativa.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <h2>O que o PERDCOMP Mapper faz por você</h2>
+        </div>
+        <div class="features-content">
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-icon">📋</div>
+                    <div class="feature-content">
+                        <h3>Mapa Completo de Créditos</h3>
+                        <p>Consolidamos todas as suas DCOMPs em um único documento estruturado e rastreável.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🔍</div>
+                    <div class="feature-content">
+                        <h3>Identificação de Inconsistências</h3>
+                        <p>Detectamos créditos duplicados, compensações sobre débitos já pagos, problemas de competência e divergências PER/DCOMP × DCTF × DARF.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">⚙️</div>
+                    <div class="feature-content">
+                        <h3>Análise Técnica Estruturada</h3>
+                        <p>Comparamos créditos informados vs. créditos validados pela metodologia RZ3, identificando períodos sem cobertura integral.</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">🛡️</div>
+                    <div class="feature-content">
+                        <h3>Defesa Técnica Preparada</h3>
+                        <p>Entrega documentação objetiva para Manifestação de Inconformidade, aumentando significativamente sua chance de homologação.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="features-image"></div>
+        </div>
+    </section>
+
+    <!-- BENEFÍCIOS -->
+    <section class="benefits" id="benefits">
+        <div class="benefits-content">
+            <h2>Por que mapear seus PERDCOMPs</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h3>🎯 Redução Drástica de Risco Fiscal</h3>
+                    <p>Antecipe erros antes da Receita identificar. Evite despacho decisório de não homologação e multas de 50%.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>📈 Defesa Técnica Muito Mais Forte</h3>
+                    <p>Sua Manifestação de Inconformidade deixa de ser narrativa e vira prova técnica. Aumenta significativamente a chance de homologação.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>💼 Governança e Compliance</h3>
+                    <p>Crie rastreabilidade, documente decisões técnicas, padronize processos. Essencial para PMEs, grandes empresas e grupos.</p>
+                </div>
+                <div class="benefit-card">
+                    <h3>🔐 Preparação para Auditoria Eletrônica</h3>
+                    <p>A Receita trabalha com malha fina automática e robôs de auditoria. Um mapeamento bem feito funciona como pré-auditoria interna.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TIMELINE -->
+    <section class="timeline" id="timeline">
+        <div class="timeline-container">
+            <div class="section-header">
+                <h2>Como o Processo Funciona</h2>
+                <p>Entrega em até 15 dias, sem complicações.</p>
+            </div>
+            <div style="margin-top: 3rem;">
+                <div class="timeline-item">
+                    <div>
+                        <div class="timeline-number">1</div>
+                        <h3>Acesso e Extração</h3>
+                        <p>Você nos fornece acesso ao e-CAC da Receita Federal via procuração eletrônica. Extraímos todas as suas DCOMPs de forma segura.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div>
+                        <div class="timeline-number">2</div>
+                        <h3>Análise Técnica</h3>
+                        <p>Processamos cada DCOMP, comparamos créditos, identificamos inconsistências e mapeamos movimentação completa de créditos.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div>
+                        <div class="timeline-number">3</div>
+                        <h3>Relatório Estruturado</h3>
+                        <p>Você recebe o Mapa de Movimentação de Créditos documentado, com análise clara de créditos, utilizações e períodos descobertos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing" id="pricing">
+        <div class="pricing-container">
+            <div class="section-header">
+                <h2>Planos de Mapeamento</h2>
+                <p>Escolha o plano que melhor atende seu volume de PERDCOMPs.</p>
+            </div>
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Até 100 PERDCOMPs</h3>
+                        <p>Para empresas com volume moderado de créditos</p>
+                    </div>
+                    <div class="price">R$ 10.000,00</div>
+                    <div class="price-period">Valor único para mapeamento</div>
+                    <ul class="pricing-features">
+                        <li>Mapa completo de movimentação</li>
+                        <li>Identificação de inconsistências</li>
+                        <li>Análise de créditos vs validação</li>
+                        <li>Relatório estruturado</li>
+                        <li>Até 100 DCOMPs</li>
+                    </ul>
+                    <button class="btn btn-checkout" onclick="handleCheckout('Até 100 PERDCOMPs', 10000)">Comprar agora</button>
+                    <p style="text-align: center; margin-top: 1rem; color: var(--text-light); font-size: 0.85rem;">
+                        <strong>Com cupom de indicação:</strong> R$ 7.500,00
+                    </p>
+                </div>
+
+                <div class="pricing-card featured">
+                    <div class="pricing-header">
+                        <h3>PERDCOMPs Ilimitados</h3>
+                        <p>Para grandes empresas e grupos empresariais</p>
+                    </div>
+                    <div class="price">R$ 20.000,00</div>
+                    <div class="price-period">Valor único para mapeamento</div>
+                    <ul class="pricing-features">
+                        <li>Mapa completo de movimentação</li>
+                        <li>Identificação de inconsistências</li>
+                        <li>Análise de créditos vs validação</li>
+                        <li>Relatório estruturado</li>
+                        <li>PERDCOMPs ilimitados</li>
+                        <li>Mesmo CNPJ</li>
+                    </ul>
+                    <button class="btn btn-checkout" onclick="handleCheckout('PERDCOMPs Ilimitados', 20000)">Comprar agora</button>
+                    <p style="text-align: center; margin-top: 1rem; color: var(--text-light); font-size: 0.85rem;">
+                        <strong>Com cupom de indicação:</strong> R$ 15.000,00
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST -->
+    <section class="trust">
+        <div class="trust-container">
+            <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 2rem; color: var(--text-dark);">Por que confiar na RZ3</h2>
+            <div>
+                <div class="trust-stat">
+                    <div class="trust-number">1.000+</div>
+                    <div class="trust-label">Empresas atendidas</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-number">15</div>
+                    <div class="trust-label">Dias de entrega</div>
+                </div>
+                <div class="trust-stat">
+                    <div class="trust-number">100%</div>
+                    <div class="trust-label">Segurança de dados</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CALL TO ACTION FINAL -->
+    <section class="final-cta">
+        <h2>Pronto para tomar controle de seus créditos?</h2>
+        <p>Não deixe a Receita Federal descobrir problemas em suas DCOMPs. Mapeie agora e durma tranquilo.</p>
+        <button class="btn btn-primary" style="margin: 0 auto;" onclick="scrollToSection('pricing')">Escolher plano</button>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>&copy; 2024 RZ3 - Payroll Auditing. Todos os direitos reservados.</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem;">Contato: <a href="mailto:vendas@rz3.com.br" style="color: var(--accent-gold); text-decoration: none;">vendas@rz3.com.br</a></p>
+    </footer>
+
+    <!-- MODAL DE CUPOM -->
+    <div class="coupon-modal" id="couponModal">
+        <div class="coupon-content">
+            <button class="coupon-close" onclick="closeCouponModal()">✕</button>
+            <h3>Tem cupom de indicação?</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Insira seu código para aplicar o desconto no carrinho.</p>
+            <form class="coupon-form">
+                <input type="text" id="couponInput" placeholder="Digite seu código de cupom" required>
+                <button type="button" onclick="applyCoupon()">Aplicar cupom</button>
+                <button type="button" style="background: var(--text-light); margin-top: 0.5rem;" onclick="closeCouponModal()">Continuar sem cupom</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function handleCheckout(planName, price) {
+            // Armazenar dados da compra em sessionStorage
+            sessionStorage.setItem('selectedPlan', planName);
+            sessionStorage.setItem('selectedPrice', price);
+            
+            // Mostrar modal de cupom
+            document.getElementById('couponModal').classList.add('active');
+        }
+
+        function closeCouponModal() {
+            document.getElementById('couponModal').classList.remove('active');
+        }
+
+        function applyCoupon() {
+            const couponCode = document.getElementById('couponInput').value;
+            
+            // Validar cupom (exemplo simples)
+            const validCoupons = {
+                'INDICACAO2500': { discount: 2500, plan: 'Até 100 PERDCOMPs' },
+                'INDICACAO5000': { discount: 5000, plan: 'PERDCOMPs Ilimitados' }
+            };
+
+            if (validCoupons[couponCode.toUpperCase()]) {
+                const coupon = validCoupons[couponCode.toUpperCase()];
+                const price = parseInt(sessionStorage.getItem('selectedPrice'));
+                const finalPrice = price - coupon.discount;
+                
+                // Preparar dados para Mercado Pago
+                prepareCheckout(finalPrice, couponCode);
+            } else {
+                alert('Cupom inválido. Verifique o código.');
+            }
+        }
+
+        function prepareCheckout(finalPrice, couponCode) {
+            // Aqui você integraria com a API do Mercado Pago
+            // Por enquanto, vamos simular
+            const planName = sessionStorage.getItem('selectedPlan');
+            const originalPrice = parseInt(sessionStorage.getItem('selectedPrice'));
+            const discount = originalPrice - finalPrice;
+
+            const message = `
+Plano: ${planName}
+Preço original: R$ ${originalPrice.toLocaleString('pt-BR')}
+Cupom aplicado: -R$ ${discount.toLocaleString('pt-BR')}
+Valor final: R$ ${finalPrice.toLocaleString('pt-BR')}
+
+Redirecionando para Mercado Pago...
+            `;
+
+            alert(message);
+
+            // Integração com Mercado Pago (você precisa configurar sua chave pública)
+            // Exemplo de redirecionamento:
+            // window.location.href = `https://api.mercadopago.com/checkout/pay?preference_id=YOUR_PREFERENCE_ID`;
+
+            closeCouponModal();
+        }
+
+        // Fechar modal ao clicar fora dele
+        document.getElementById('couponModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeCouponModal();
+            }
+        });
+    </script>
+</body>
+</html>
